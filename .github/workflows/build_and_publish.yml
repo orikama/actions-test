@@ -29,6 +29,18 @@ jobs:
             echo ${{ github.event.before }}
           fi
 
+      - name: Python
+        run: |
+          if [ $GITHUB_BASE_REF ]; then
+            echo Pull
+            export PREVIOUS_SHA="origin/$GITHUB_BASE_REF"
+          else
+            echo Push
+            export PREVIOUS_SHA="${{ github.event.before }}"
+          fi
+          export CURRENT_SHA="$GITHUB_SHA"
+          python generate_matrix.py
+
       - name: Dump
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
