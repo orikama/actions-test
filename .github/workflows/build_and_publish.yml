@@ -1,0 +1,27 @@
+name: "Build and publish"
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  generate-matrix:
+    name: "Generate matrix"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get source code
+        uses: actions/checkout@v2
+        run: |
+          if [ $GITHUB_BASE_REF ]; then
+            # Pull Request
+            echo Pull
+            echo ${{ github.event.pull_request.base.ref }}
+            echo ${{ github.event.pull_request.base.sha }}
+          else
+            # Push
+            echo Push
+            echo ${{ github.event.base_ref }}
+            echo ${{ github.event.before }}
