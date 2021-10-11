@@ -27,6 +27,7 @@ jobs:
             echo Push
             echo ${{ github.event.base_ref }}
             echo ${{ github.event.before }}
+          fi
 
       - name: Dump
         env:
