@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Get source code
         uses: actions/checkout@v2
+
+      - name: Test
         run: |
           if [ $GITHUB_BASE_REF ]; then
             # Pull Request
@@ -25,3 +27,8 @@ jobs:
             echo Push
             echo ${{ github.event.base_ref }}
             echo ${{ github.event.before }}
+
+      - name: Dump
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
