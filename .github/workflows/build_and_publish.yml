@@ -39,7 +39,7 @@ jobs:
             export PREVIOUS_SHA="${{ github.event.before }}"
           fi
           export CURRENT_SHA="$GITHUB_SHA"
-          python generate_matrix.py
+          python env.py
 
       - name: Dump
         env:
